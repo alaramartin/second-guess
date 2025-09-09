@@ -125,3 +125,59 @@ img {
     margin: 7px;
     padding: 7px;
 }
+
+
+button,
+input[type="submit"] {
+    background: #fff;
+    color: #222;
+    border: 1.5px solid #bbb;
+    border-radius: 6px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    box-shadow: none;
+    outline: none;
+}
+button:hover,
+input[type="submit"]:hover {
+    border-color: #4f8cff;
+    color: #4f8cff;
+    background: #f7faff;
+}
+button:active,
+input[type="submit"]:active {
+    border-color: #3578e5;
+    color: #3578e5;
+    background: #f0f6ff;
+}
+button:focus,
+input[type="submit"]:focus {
+    border-color: #38cfa6;
+    box-shadow: 0 0 0 2px #b3e0ff;
+}
+
+.current-score {
+    position: fixed;
+    display: inline-block;
+    background: none;
+    border: 2px solid #bbb;
+    border-radius: 10px;
+    background: white;
+    color: black;
+    padding: 0;
+    margin: 0;    
+    width: auto;
+    height: auto;
+    top: 0;
+    right: 0;
+    padding: 8px;
+    margin: 10px;
+}
+
+body {
+    font-family: inherit;
+}

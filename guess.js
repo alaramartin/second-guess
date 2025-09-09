@@ -1,11 +1,16 @@
 console.log("hi");
 // idea: allow users to choose number of questions but don't let it exceed length of json questions
+// idea: show score in top right corner?
+// idea: dark mode
 
 let score = 0;
 let roundNum = 1;
 let currentQuestion;
 const numRoundsTotal = 3;
 let isFirstGuess = true;
+
+let currentScore = `${score}/${numRoundsTotal}`;
+const scoreCard = document.getElementsByClassName("current-score")[0];
 
 let currentScreen = document.getElementsByClassName("start-screen")[0];
 
@@ -27,6 +32,7 @@ function initializeGame() {
     score = 0;
     roundNum = 1;
     isFirstGuess = true;
+    updateScore(score);
 }
 
 function getCurrentScreen() {
@@ -38,6 +44,11 @@ function getCurrentScreen() {
         }
     }
     return null;
+}
+
+function updateScore(score) {
+    currentScore = `${score}/${numRoundsTotal}`;
+    scoreCard.textContent = `Current Score: ${currentScore}`;
 }
 
 // wait until the DOM loads
@@ -122,6 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                     currentQuestion = questions[roundNum - 1];
                     document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
+                    updateScore(score);
                     return;
                 }, 1500);
             }
@@ -137,6 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     document.getElementById("answer").value = "";
                     document.getElementsByTagName("label")[0].textContent = "Second Guess:";
                     isFirstGuess = false;
+                    updateScore(score);
                 }, 1500);
             }
         }
@@ -187,6 +200,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     currentQuestion = questions[roundNum - 1];
                     document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
                 }
+                updateScore(score);
             }, 1500);
             
         }
