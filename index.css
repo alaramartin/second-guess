@@ -1,4 +1,4 @@
-.start-screen, .question-screen, .end-screen {
+.start-screen, .info-screen, .question-screen, .end-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,9 +13,15 @@
 .starting-info > * {
     margin-bottom: 0.3em;
 }
+
+.info-screen {
+    display: none;
+}
+
 .question-screen {
     display: none;
 }
+
 .end-screen {
     display: none;
 }
@@ -24,7 +30,7 @@
     color: grey;
     font-style:italic;
 }
-#info {
+.info-btn {
     position: fixed;
     top: 0;
     left: 0;
@@ -37,7 +43,7 @@
     width: auto;
     height: auto;
 }
-#info img {
+.info-btn img {
     display: block;
     width: 34px;
     height: 32px;

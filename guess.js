@@ -10,7 +10,9 @@ let currentQuestion;
 const numRoundsTotal = 3;
 let isFirstGuess = true;
 
-let questions = []
+let currentScreen = document.getElementsByClassName("start-screen")[0];
+
+let questions = [];
 
 // get the questions from the json file
 async function loadQuestions() {
@@ -30,12 +32,40 @@ function initializeGame() {
     isFirstGuess = true;
 }
 
+function getCurrentScreen() {
+    const screens = document.querySelectorAll(".start-screen, .info-screen, .question-screen, .end-screen");
+    for (let screen of screens) {
+        if (getComputedStyle(screen).display === "flex") {
+            console.log(screen.className);
+            return screen;
+        }
+    }
+    return null;
+}
+
 // wait until the DOM loads
 document.addEventListener("DOMContentLoaded", async () => {
     console.log("hihi");
 
     // wait to load questions from the json file
     await loadQuestions();
+
+    const infoScreen = document.getElementsByClassName("info-screen")[0];
+    document.addEventListener("click", function(e) {
+        const infoBtn = e.target.closest(".info-btn");
+        if (infoBtn) {
+            // if the info isn't already showing, show it. otherwise, remove it and restore old
+            const screen = getCurrentScreen();
+            if (screen.classList.contains("info-screen")) {
+                infoScreen.style.display = "none";
+                currentScreen.style.display = "flex";
+            }
+            else {
+                currentScreen.style.display = "none";
+                infoScreen.style.display = "flex";
+            }
+        }
+    });
 
     const startButton = document.getElementById("start-game");
     const startScreen = document.getElementsByClassName("start-screen")[0];
@@ -47,6 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         initializeGame();
         startScreen.style.display = "none";
         questionScreen.style.display = "flex";
+        currentScreen = questionScreen;
         currentQuestion = questions[0];
         document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
 
@@ -96,6 +127,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (roundNum > numRoundsTotal) {
                 questionScreen.style.display = "none";
                 endScreen.style.display = "flex";
+                currentScreen = endScreen;
                 document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
             }
             else {
@@ -111,6 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // go back to start page
         endScreen.style.display = "none";
         startScreen.style.display = "flex";
+        currentScreen = startScreen;
 
         console.log("restarted");
     });
