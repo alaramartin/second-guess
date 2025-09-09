@@ -1,8 +1,7 @@
 console.log("hi");
-
-
-// idea: add a drop-down or some div that appears when you click on it for instructions
 // idea: allow users to choose number of questions but don't let it exceed length of json questions
+// fixme: display correct/incorrect for 2 seconds before moving onto next guess or question or screen
+// idea: cancel/return to home button
 
 let score = 0;
 let roundNum = 1;
@@ -53,6 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const infoScreen = document.getElementsByClassName("info-screen")[0];
     document.addEventListener("click", function(e) {
         const infoBtn = e.target.closest(".info-btn");
+        const homeBtn = e.target.closest(".home-btn");
         if (infoBtn) {
             // if the info isn't already showing, show it. otherwise, remove it and restore old
             const screen = getCurrentScreen();
@@ -64,6 +64,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentScreen.style.display = "none";
                 infoScreen.style.display = "flex";
             }
+        }
+        else if (homeBtn) {
+            // go back to start page
+            getCurrentScreen().style.display = "none";
+            startScreen.style.display = "flex";
+            currentScreen = startScreen;
+
+            console.log("restarted back at home");
         }
     });
 

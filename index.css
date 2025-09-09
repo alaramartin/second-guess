@@ -5,17 +5,23 @@
     justify-content: center;
     height: 100vh;
 }
+
 .starting-info {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .starting-info > * {
     margin-bottom: 0.3em;
 }
 
 .info-screen {
     display: none;
+}
+.info-screen p {
+    text-align: center;
+    width: 700px;
 }
 
 .question-screen {
@@ -28,12 +34,42 @@
 
 #hint {
     color: grey;
-    font-style:italic;
+    font-style: italic;
 }
-.info-btn {
+
+.tooltip-container {
     position: fixed;
-    top: 0;
-    left: 0;
+    display: inline-block;
+}
+.tooltip-text {
+    visibility: hidden;
+    background-color: darkslategray;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    padding: 4px 8px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9em;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+.tooltip-container.info .tooltip-text {
+    left: 100%;
+    margin-left: 3px;
+    margin-top: -2px;
+}
+.tooltip-container.home .tooltip-text {
+    right: 100%;
+    margin-right: 4px;
+    margin-top: -1px;
+}
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+}
+.info-btn, .home-btn {
     background: none;
     border: none;
     padding: 0;
@@ -43,14 +79,39 @@
     width: auto;
     height: auto;
 }
-.info-btn img {
-    display: block;
-    width: 34px;
-    height: 32px;
-    margin: 5px;
-    padding: 5px;
+.tooltip-container.info {
+    top: 0;
+    left: 0;
+    padding: 6px;
 }
+.tooltip-container.home {
+    bottom: 0;
+    right: 0;
+    padding: 6px;
+}
+
 #start-game {
     margin-top: 1em;
     align-self: center;
+}
+
+input[type="text"] {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+input[type="text"]:focus {
+    border: 2px solid transparent;
+    outline: 3px solid lightblue;
+}
+input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+}
+
+img {
+    display: block;
+    width: 34px;
+    height: 32px;
+    margin: 7px;
+    padding: 7px;
 }

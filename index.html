@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <button class="info-btn"><img src="info.png"></button>
+    <div class="tooltip-container info">
+        <button class="info-btn"><img src="info.png"></button>
+        <span class="tooltip-text">Show Instructions</span>
+    </div>
+    <div class="tooltip-container home">
+        <button class="home-btn"><img src="home.png"></button>
+        <span class="tooltip-text tooltip-left">Return to Homepage</span>
+    </div>
     <div class="start-screen">
         <div class="starting-info">
             <h1>Welcome to the Second-Guessing Game!</h1>
@@ -18,14 +25,14 @@
     </div>
     <div class="info-screen">
         <h2>How do I play this game?</h2>
-        <p>This game is a little bit like trivia, and a little bit like Quiplash. Guess the correct answer, but only on the second try! If your first guess is correct, you lose the round. Bonus points for a funny/silly first guess.</p>
+        <p>This game is a little bit like trivia, and a little bit like Quiplash. Guess the correct answer, but only on the second try! If your first guess is correct, you lose the point. Bonus points for a funny/silly first guess.</p>
     </div>
     <div class="question-screen">
         <span class="question"></span>
         <form id="question-answer">
             <p>
                 <label for="answer">First Guess:</label>
-                <input type="text" id="answer"/>
+                <input type="text" id="answer" autocomplete="off"/>
             </p>
             <input type="submit" value="Submit Guess">
         </form>
