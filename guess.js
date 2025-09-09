@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // switch the screen to first question and set up
         initializeGame();
         startScreen.style.display = "none";
-        questionScreen.style.display = "block";
+        questionScreen.style.display = "flex";
         currentQuestion = questions[0];
         document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
 
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // if played all rounds, switch to end game
             if (roundNum > numRoundsTotal) {
                 questionScreen.style.display = "none";
-                endScreen.style.display = "block";
+                endScreen.style.display = "flex";
                 document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
             }
             else {
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     restartButton.addEventListener("click", () => {
         // go back to start page
         endScreen.style.display = "none";
-        startScreen.style.display = "block";
+        startScreen.style.display = "flex";
 
         console.log("restarted");
     });
