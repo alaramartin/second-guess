@@ -6,6 +6,7 @@ console.log("hi");
 
 let score = 0;
 let roundNum = 1;
+let currentQuestion;
 const numRoundsTotal = 3;
 let isFirstGuess = true;
 
@@ -46,7 +47,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         initializeGame();
         startScreen.style.display = "none";
         questionScreen.style.display = "block";
-        document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${questions[0].question}`;
+        currentQuestion = questions[0];
+        document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
 
         console.log("started");
     });
@@ -56,8 +58,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         // prevent the website automatically reloading
         event.preventDefault();
         if (isFirstGuess) {
-            
-            console.log(document.getElementById("answer").value);
+            const answer = document.getElementById("answer").value;
+            console.log(answer);
+            // figure out if answer was correct
+            if (answer === currentQuestion.correct) {
+                console.log("tsk tsk. you go the first guess correct");
+                // skip to next question
+                document.getElementsByTagName("label")[0].textContent = "First Guess:";
+                document.getElementById("answer").value = "";
+                roundNum += 1;
+                currentQuestion = questions[roundNum - 1];
+                document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
+                return;
+            }
+            // set up next guess
             document.getElementById("answer").value = "";
             document.getElementsByTagName("label")[0].textContent = "Second Guess:";
             isFirstGuess = false;
@@ -65,22 +79,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         else {
             const answer = document.getElementById("answer").value;
             console.log(answer);
-            // todo: figure out if answer was correct
-
-            document.getElementById("answer").value = "";
+            // figure out if answer was correct
+            if (answer === currentQuestion.correct) {
+                console.log("yay, second guess correct!");
+                score += 1;
+            }
             console.log(`played ${roundNum} rounds out of ${numRoundsTotal} rounds`);
             roundNum += 1;
+            // set up next question
+            document.getElementById("answer").value = "";
+            // make it the first guess
+            document.getElementsByTagName("label")[0].textContent = "First Guess:";
+            isFirstGuess = true;
+
             // if played all rounds, switch to end game
             if (roundNum > numRoundsTotal) {
                 questionScreen.style.display = "none";
                 endScreen.style.display = "block";
+                document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
             }
             else {
-                // make it the first guess
-                document.getElementsByTagName("label")[0].textContent = "First Guess:";
-                isFirstGuess = true;
                 // show next question
-                document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${questions[roundNum - 1].question}`;
+                currentQuestion = questions[roundNum - 1];
+                document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
             }
         }
     });
