@@ -15,6 +15,7 @@
         <button class="home-btn"><img src="home.png"></button>
         <span class="tooltip-text tooltip-left">Return to Homepage</span>
     </div>
+
     <div class="start-screen">
         <div class="starting-info">
             <h1>Welcome to the Second-Guessing Game!</h1>
@@ -23,10 +24,12 @@
         </div>
         <button id="start-game">Start the game!</button>
     </div>
+
     <div class="info-screen">
         <h2>How do I play this game?</h2>
         <p>This game is a little bit like trivia, and a little bit like Quiplash. Guess the correct answer, but only on the second try! If your first guess is correct, you lose the point. Bonus points for a funny/silly first guess.</p>
     </div>
+
     <div class="question-screen">
         <span class="question"></span>
         <form id="question-answer">
@@ -36,13 +39,16 @@
             </p>
             <input type="submit" value="Submit Guess">
         </form>
+        <div class="result"></div>
     </div>
+
     <div class="end-screen">
         <p>Here's how you did:
             <span class="score"></span>
         </p>
         <button id="restart">Restart?</button>
     </div>
+
     <script type="module" src="guess.js"></script>
 </body>
 </html>

@@ -27,6 +27,16 @@
 .question-screen {
     display: none;
 }
+.result {
+    display: inline-block;
+    visibility: hidden;
+    border: 2px solid;
+    border-color: black;
+    border-radius: 17px;
+    color: black;
+    padding: 5px;
+    margin: 10px;
+}
 
 .end-screen {
     display: none;

@@ -1,7 +1,5 @@
 console.log("hi");
 // idea: allow users to choose number of questions but don't let it exceed length of json questions
-// fixme: display correct/incorrect for 2 seconds before moving onto next guess or question or screen
-// idea: cancel/return to home button
 
 let score = 0;
 let roundNum = 1;
@@ -70,6 +68,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             getCurrentScreen().style.display = "none";
             startScreen.style.display = "flex";
             currentScreen = startScreen;
+            document.getElementsByTagName("label")[0].textContent = "First Guess:";
+            document.getElementById("answer").value = "";
 
             console.log("restarted back at home");
         }
@@ -102,18 +102,43 @@ document.addEventListener("DOMContentLoaded", async () => {
             // figure out if answer was correct
             if (answer === currentQuestion.correct) {
                 console.log("tsk tsk. you go the first guess correct");
-                // skip to next question
-                document.getElementsByTagName("label")[0].textContent = "First Guess:";
-                document.getElementById("answer").value = "";
-                roundNum += 1;
-                currentQuestion = questions[roundNum - 1];
-                document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
-                return;
+                const result = document.getElementsByClassName("result")[0];
+                result.textContent = "First guess correct, you don't get a point :(";
+                result.style.backgroundColor = "#FFC1C1";
+                result.style.borderColor = "#8B0000";
+                result.style.visibility = "visible";
+                setTimeout(() => {
+                    result.style.visibility = "hidden";
+                    // skip to next question
+                    document.getElementsByTagName("label")[0].textContent = "First Guess:";
+                    document.getElementById("answer").value = "";
+                    roundNum += 1;
+                    if (roundNum > numRoundsTotal) {
+                        questionScreen.style.display = "none";
+                        endScreen.style.display = "flex";
+                        currentScreen = endScreen;
+                        document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
+                        return;
+                    }
+                    currentQuestion = questions[roundNum - 1];
+                    document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
+                    return;
+                }, 1500);
             }
-            // set up next guess
-            document.getElementById("answer").value = "";
-            document.getElementsByTagName("label")[0].textContent = "Second Guess:";
-            isFirstGuess = false;
+            else {
+                const result = document.getElementsByClassName("result")[0];
+                result.textContent = "First guess incorrect, move onto your second!";
+                result.style.backgroundColor = "#C1D4FF";
+                result.style.borderColor = "#0c58a4ff";
+                result.style.visibility = "visible";
+                setTimeout(() => {
+                    result.style.visibility = "hidden";
+                    // set up next guess
+                    document.getElementById("answer").value = "";
+                    document.getElementsByTagName("label")[0].textContent = "Second Guess:";
+                    isFirstGuess = false;
+                }, 1500);
+            }
         }
         else {
             const answer = document.getElementById("answer").value;
@@ -122,27 +147,48 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (answer === currentQuestion.correct) {
                 console.log("yay, second guess correct!");
                 score += 1;
-            }
-            console.log(`played ${roundNum} rounds out of ${numRoundsTotal} rounds`);
-            roundNum += 1;
-            // set up next question
-            document.getElementById("answer").value = "";
-            // make it the first guess
-            document.getElementsByTagName("label")[0].textContent = "First Guess:";
-            isFirstGuess = true;
-
-            // if played all rounds, switch to end game
-            if (roundNum > numRoundsTotal) {
-                questionScreen.style.display = "none";
-                endScreen.style.display = "flex";
-                currentScreen = endScreen;
-                document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
+                const result = document.getElementsByClassName("result")[0];
+                result.textContent = "Second guess correct, you get a point!";
+                result.style.backgroundColor = "#82CF95";
+                result.style.borderColor = "#0B5124";
+                result.style.visibility = "visible";
+                setTimeout(() => {
+                    result.style.visibility = "hidden";
+                }, 1500);
             }
             else {
-                // show next question
-                currentQuestion = questions[roundNum - 1];
-                document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
+                const result = document.getElementsByClassName("result")[0];
+                result.textContent = "Second guess incorrect, you don't get a point :(";
+                result.style.backgroundColor = "#FFC1C1";
+                result.style.borderColor = "#8B0000";
+                result.style.visibility = "visible";
+                setTimeout(() => {
+                    result.style.visibility = "hidden";
+                }, 1500);
             }
+            setTimeout(() => {
+                console.log(`played ${roundNum} rounds out of ${numRoundsTotal} rounds`);
+                roundNum += 1;
+                // set up next question
+                document.getElementById("answer").value = "";
+                // make it the first guess
+                document.getElementsByTagName("label")[0].textContent = "First Guess:";
+                isFirstGuess = true;
+
+                // if played all rounds, switch to end game
+                if (roundNum > numRoundsTotal) {
+                    questionScreen.style.display = "none";
+                    endScreen.style.display = "flex";
+                    currentScreen = endScreen;
+                    document.getElementsByClassName("score")[0].textContent = `${score} out of ${numRoundsTotal} possible points`;
+                }
+                else {
+                    // show next question
+                    currentQuestion = questions[roundNum - 1];
+                    document.getElementsByClassName("question")[0].textContent = `Question ${roundNum}: ${currentQuestion.question}`;
+                }
+            }, 1500);
+            
         }
     });
 
@@ -152,6 +198,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         endScreen.style.display = "none";
         startScreen.style.display = "flex";
         currentScreen = startScreen;
+        document.getElementsByTagName("label")[0].textContent = "First Guess:";
+        document.getElementById("answer").value = "";
 
         console.log("restarted");
     });
