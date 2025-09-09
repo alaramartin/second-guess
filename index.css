@@ -1,0 +1,9 @@
+.start-screen {
+    display: block;
+}
+.question-screen {
+    display: none;
+}
+.end-screen {
+    display: none;
+}
