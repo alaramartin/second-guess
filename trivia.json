@@ -1,0 +1,14 @@
+[
+    {
+        "question": "what is the answer to life, the universe, and everything?",
+        "correct": "42"
+    },
+    {
+        "question": "what is the answer to this question?",
+        "correct": "42 (duh)"
+    },
+    {
+        "question": "another one?",
+        "correct": "anotha one"
+    }
+]
