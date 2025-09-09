@@ -1,6 +1,5 @@
 console.log("hi");
 // idea: allow users to choose number of questions but don't let it exceed length of json questions
-// idea: show score in top right corner?
 // idea: dark mode
 
 let score = 0;
@@ -85,6 +84,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log("restarted back at home");
         }
     });
+
+    // const darkModeBtn = document.querySelector('.dark-mode');
+    // if (darkModeBtn) {
+    //     darkModeBtn.addEventListener('click', function(e) {
+    //         e.stopPropagation(); // optional, prevents bubbling
+    //         document.body.classList.toggle('dark-mode');
+    //     });
+    // }
 
     const startButton = document.getElementById("start-game");
     const startScreen = document.getElementsByClassName("start-screen")[0];
