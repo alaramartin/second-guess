@@ -50,6 +50,34 @@ function updateScore(score) {
     scoreCard.textContent = `Current Score: ${currentScore}`;
 }
 
+async function getFirstGuessScore(question, guess) {
+    try {
+        // get the output of the api call
+        const response = await fetch("http://localhost:3000/api/score", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            // body: JSON.stringify({ question : question.text, guess : guess.text})
+            body: JSON.stringify({ question , guess })
+        });
+
+        const data = await response.json();
+        const score = data.score;
+        console.log("score is:", score);
+        // if (score > 5 || score < 1) {
+        //     // there's something wrong, return 0
+        //     console.log(`ai returned nonsensical ${score}`);
+        //     return 0;
+        // }
+        return score;
+    }
+    catch (err) {
+        console.log(err);
+        return 0;
+    }
+}
+
+await getFirstGuessScore("hi", "gemini");
+
 // wait until the DOM loads
 document.addEventListener("DOMContentLoaded", async () => {
     console.log("hihi");
